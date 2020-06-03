@@ -23,19 +23,20 @@ namespace ConsoleApp1
 			{
 				for (i = 0; i < boardSize; i++)
 				{
-					int odds = rand.Next(0, 4);
+					int odds = rand.Next(0, 20);
 					if (j == 0)
 						environment = shoreline;
-					else if (odds == 0 && board[i, j - 1].environment < 4 || board[i, j - 1].environment == 0)
+					else if (odds < 5 && board[i, j - 1].environment < 4 || board[i, j - 1].environment == 0)
 						environment = board[i, j - 1].environment + 1;
 					else environment = board[i, j - 1].environment;
-					if (odds == 3)
+					if (odds > 16)
 						specialEvent = 1;
 					else specialEvent = 0;
 					board[i, j] = new Square(environment, specialEvent);
 				}
 			}
-			Console.WriteLine("Welcome to my game! You have 6 response options. North, South, East, West, Yes, or No. There is no goal so just have fun. Thank you for playing!");
+			Console.WriteLine("You wake up with a throbbing in your head. You open you eyes to a painfully bright light. The sun is already starting to scorch your skin." + Environment.NewLine + 
+			"You stand up and attempt to get your bearings. Luckily you find a backpack nearby. You decide to look around for away off of the abandoned island. Good Luck.");
 			board[player.locationX, player.locationY].Description(player, board[player.locationX, player.locationY]);
 			for (i = 0; i < 100; i++)
 			{
@@ -46,20 +47,7 @@ namespace ConsoleApp1
 						board[player.locationX, player.locationY].Description(player, board[player.locationX, player.locationY]);
 				}
 			}
-			/*for (j = 0; j < 25; j++)
-			{
-				for (i = 0; i < 25; i++)
-				{
-					Console.Write(board[i, j].specialEvent);
-				}
-				Console.WriteLine();
-			}*/
 		}
-
-
-
-
-
 	}
 }
 
@@ -101,15 +89,12 @@ public class Square
 					done = true;
 			}
 		}
-
 	}
 	public void RandomEvent(Player player, Square square)
 	{
 		Console.WriteLine("You pick up what appears to be a loaded flare gun with a single round. You put it in your backpack.");
 		player.backpack.Insert(player.backpack.Count, "Flare Gun");
 	}
-
-
 }
 
 public class Player
@@ -136,9 +121,7 @@ public class Player
 			"6) Yes and No" + Environment.NewLine +
 			"7) Type the name of anything in your backpack to inspect/use it" + Environment.NewLine +
 			"7) Quit to Quit" + Environment.NewLine);
-
 	}
-
 	public void Inventory()
 	{
 		Console.WriteLine(Environment.NewLine + "You open your back pack and find the following...");
@@ -148,7 +131,6 @@ public class Player
 		}
 		Console.WriteLine();
 	}
-
 	public void doSomething(Square square, Player player)
 	{
 		Console.WriteLine("What would you like to do?");
